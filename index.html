@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="data:,">
+<title>紫微娱乐测试｜测测你的搞钱方式与隐藏天赋</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #faf6f0; color: #2b2118; line-height: 1.7; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 24px; margin: 8px 0 4px; }
+  .sub { color: #8a7a68; font-size: 14px; margin: 0 0 16px; }
+  .badge { display: inline-block; background: #f6e8d8; color: #8a5a1e; border: 1px solid #e8d5b5; border-radius: 999px; padding: 2px 12px; font-size: 13px; }
+  .card { background: #fff; border: 1px solid #eee3d3; border-radius: 14px; padding: 18px; margin-top: 16px; box-shadow: 0 2px 10px rgba(120, 90, 40, .06); }
+  label { display: block; font-size: 14px; font-weight: 600; margin: 14px 0 6px; }
+  input[type="text"], input[type="date"], input[type="time"], select { width: 100%; padding: 11px 12px; font-size: 16px; border: 1px solid #d8cbb8; border-radius: 10px; background: #fffdf9; color: #2b2118; }
+  input:disabled { background: #f0ece6; color: #9a938a; }
+  .row { display: flex; gap: 10px; }
+  .row > div { flex: 1; }
+  .radio { display: flex; gap: 18px; padding: 4px 0; }
+  .radio label { font-weight: 400; margin: 0; display: flex; align-items: center; gap: 6px; }
+  .check { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; }
+  button.primary { width: 100%; margin-top: 20px; padding: 14px; font-size: 17px; font-weight: 700; color: #fff; background: #b4552d; border: none; border-radius: 12px; cursor: pointer; }
+  button.primary:active { opacity: .85; }
+  button.secondary { margin-top: 16px; padding: 10px 18px; font-size: 15px; background: #fff; border: 1px solid #d8cbb8; border-radius: 10px; cursor: pointer; }
+  #error { color: #b3261e; font-size: 14px; min-height: 22px; margin-top: 10px; }
+  #result { display: none; }
+  #result h2 { font-size: 20px; margin: 4px 0; }
+  #result h3 { font-size: 17px; margin: 18px 0 8px; }
+  .meta { color: #8a7a68; font-size: 14px; }
+  .note { background: #fdf6e9; border: 1px solid #f0e0c0; border-radius: 10px; padding: 10px 12px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cell { background: #fffdf9; border: 1px solid #eee3d3; border-radius: 10px; padding: 8px 10px; min-height: 64px; }
+  .pname { font-weight: 700; font-size: 14px; }
+  .pstars { font-size: 13px; color: #6b5d4f; }
+  .section { background: #fff; border: 1px solid #eee3d3; border-radius: 12px; padding: 4px 16px 12px; margin-top: 14px; }
+  .section p { margin: 10px 0; font-size: 15px; }
+  .disclaimer { color: #8a7a68; font-size: 13px; margin-top: 18px; }
+  .foot { color: #a99c8c; font-size: 12px; margin-top: 28px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="badge">纯属娱乐 · 仅供参考</span>
+  <h1 id="brandName">紫微娱乐测试</h1>
+  <p class="sub">输入出生信息，看看你的搞钱方式、隐藏天赋和 2027 年关键词。这只是个娱乐小测试，不算命、不改运。</p>
+
+  <form id="form" class="card" autocomplete="off">
+    <label for="name">名字（可选）</label>
+    <input type="text" id="name" placeholder="比如：小明" maxlength="20">
+
+    <label for="birthdate">出生日期（公历）*</label>
+    <input type="date" id="birthdate" min="1900-01-01" max="2026-12-31" required>
+
+    <label for="birthtime">出生时间*</label>
+    <input type="time" id="birthtime" value="12:00">
+    <label class="check"><input type="checkbox" id="unknownTime"> 不知道具体时间（按午时算）</label>
+
+    <label>性别*</label>
+    <div class="radio">
+      <label><input type="radio" name="gender" value="female"> 女</label>
+      <label><input type="radio" name="gender" value="male"> 男</label>
+    </div>
+
+    <label for="province">出生地（可选，选了会按真太阳时微调时辰）</label>
+    <div class="row">
+      <div><select id="province"></select></div>
+      <div><select id="city"><option value="">请选择城市</option></select></div>
+    </div>
+
+    <button class="primary" type="submit">生成我的娱乐报告</button>
+    <div id="error"></div>
+  </form>
+
+  <div id="result" class="card"></div>
+
+  <p class="foot">排盘用的是开源紫微斗数引擎（MIT），报告文案为本测试原创；出生信息只在你的手机浏览器里计算，不会上传到任何服务器。</p>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>
